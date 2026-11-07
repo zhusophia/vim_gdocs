@@ -1,0 +1,28 @@
+body {
+  width: 340px;
+  margin: 0;
+  padding: 12px 14px 14px;
+  font: 13px/1.4 system-ui, sans-serif;
+  color: #202124;
+}
+h1 { font-size: 15px; margin: 0 0 6px; }
+h2 {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: #5f6368;
+  margin: 12px 0 4px;
+  border-bottom: 1px solid #e8eaed;
+  padding-bottom: 2px;
+}
+table { width: 100%; border-collapse: collapse; }
+td { padding: 2px 0; vertical-align: top; }
+td:first-child { width: 120px; white-space: nowrap; }
+kbd {
+  font: 12px ui-monospace, Consolas, monospace;
+  background: #f1f3f4;
+  border: 1px solid #dadce0;
+  border-radius: 3px;
+  padding: 0 4px;
+}
+.note { color: #5f6368; margin: 4px 0 0; font-size: 12px; }

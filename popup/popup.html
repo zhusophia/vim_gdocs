@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Vim for Google Docs</title>
+<link rel="stylesheet" href="popup.css">
+</head>
+<body>
+<h1>Vim for Google Docs</h1>
+
+<h2>Modes</h2>
+<table>
+<tr><td><kbd>i</kbd></td><td>Insert mode</td></tr>
+<tr><td><kbd>a</kbd></td><td>Insert after cursor</td></tr>
+<tr><td><kbd>I</kbd></td><td>Start of line, insert</td></tr>
+<tr><td><kbd>A</kbd></td><td>End of line, insert</td></tr>
+<tr><td><kbd>v</kbd></td><td>Visual mode</td></tr>
+<tr><td><kbd>V</kbd></td><td>Visual line mode</td></tr>
+<tr><td><kbd>Esc</kbd></td><td>Back to Normal mode</td></tr>
+</table>
+
+<h2>Movement</h2>
+<table>
+<tr><td><kbd>h</kbd> <kbd>j</kbd> <kbd>k</kbd> <kbd>l</kbd></td><td>Left, down, up, right (<kbd>H J K L</kbd> too)</td></tr>
+<tr><td><kbd>w</kbd></td><td>Next word</td></tr>
+<tr><td><kbd>b</kbd></td><td>Previous word</td></tr>
+<tr><td><kbd>e</kbd></td><td>End of word</td></tr>
+<tr><td><kbd>0</kbd> <kbd>$</kbd></td><td>Start / end of line</td></tr>
+<tr><td><kbd>gg</kbd></td><td>Top of document</td></tr>
+<tr><td><kbd>G</kbd></td><td>Bottom of document</td></tr>
+<tr><td><kbd>5j</kbd></td><td>Counts work: move 5 down</td></tr>
+</table>
+
+<h2>Editing</h2>
+<table>
+<tr><td><kbd>d</kbd> + motion</td><td>Delete (<kbd>dw</kbd>, <kbd>dd</kbd>)</td></tr>
+<tr><td><kbd>c</kbd> + motion</td><td>Change (<kbd>cw</kbd>, <kbd>cc</kbd>)</td></tr>
+<tr><td><kbd>y</kbd> + motion</td><td>Yank / copy (<kbd>yw</kbd>, <kbd>yy</kbd>)</td></tr>
+<tr><td><kbd>p</kbd></td><td>Paste</td></tr>
+<tr><td><kbd>u</kbd></td><td>Undo</td></tr>
+<tr><td><kbd>r</kbd> / <kbd>Ctrl R</kbd></td><td>Redo</td></tr>
+<tr><td><kbd>o</kbd></td><td>New line below</td></tr>
+<tr><td><kbd>O</kbd></td><td>New line above</td></tr>
+<tr><td><kbd>Backspace</kbd></td><td>Delete (any mode)</td></tr>
+</table>
+
+<h2>Command line (Normal mode)</h2>
+<table>
+<tr><td><kbd>:42</kbd> <kbd>Enter</kbd></td><td>Go to line 42</td></tr>
+<tr><td><kbd>:+5</kbd> <kbd>Enter</kbd></td><td>Go 5 lines down</td></tr>
+<tr><td><kbd>:-5</kbd> <kbd>Enter</kbd></td><td>Go 5 lines up</td></tr>
+<tr><td><kbd>Esc</kbd></td><td>Cancel</td></tr>
+</table>
+<p class="note">The left gutter shows line numbers; the current line is bold.</p>
+
+<h2>Always handled by Docs</h2>
+<p class="note">Ctrl/Cmd/Alt shortcuts (Ctrl+C, Ctrl+V, Ctrl+Shift+V, Ctrl+Y, Ctrl+B ...) work in every mode.</p>
+</body>
+</html>

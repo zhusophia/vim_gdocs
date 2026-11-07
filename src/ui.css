@@ -1,0 +1,79 @@
+/* Mode indicator: small and quiet on purpose. */
+#vimgd-mode {
+  all: initial;
+  position: fixed;
+  right: 28px;
+  bottom: 18px;
+  z-index: 2147483000;
+  padding: 3px 10px;
+  border-radius: 4px;
+  background: rgba(128, 128, 128, 0.08);
+  color: rgba(95, 99, 104, 0.75);
+  font: 500 13px/20px ui-monospace, Consolas, "Courier New", monospace;
+  letter-spacing: 0.04em;
+  pointer-events: none;
+  user-select: none;
+}
+
+/* Command bar: only visible after pressing ':' in Normal mode. */
+#vimgd-cmd {
+  all: initial;
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 2147483001;
+  display: none;
+  align-items: center;
+  height: 28px;
+  padding: 0 12px;
+  background: #ffffff;
+  border-top: 1px solid #dadce0;
+  box-shadow: 0 -1px 4px rgba(0, 0, 0, 0.06);
+  font: 14px/28px ui-monospace, Consolas, "Courier New", monospace;
+  color: #202124;
+}
+#vimgd-cmd.vimgd-open {
+  display: flex;
+}
+#vimgd-cmd span {
+  all: initial;
+  font: inherit;
+  color: inherit;
+}
+#vimgd-cmd input {
+  all: initial;
+  flex: 1;
+  font: inherit;
+  color: inherit;
+  caret-color: #202124;
+  background: transparent;
+  border: none;
+  outline: none;
+  padding: 0 2px;
+}
+
+/* Relative line-number gutter. */
+#vimgd-gutter {
+  all: initial;
+  position: fixed;
+  z-index: 2147482999;
+  overflow: hidden;
+  pointer-events: none;
+}
+#vimgd-gutter div {
+  all: initial;
+  position: absolute;
+  width: 32px;
+  text-align: right;
+  font: 11px ui-monospace, Consolas, "Courier New", monospace;
+  color: #9aa0a6;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  user-select: none;
+}
+#vimgd-gutter div.vimgd-cur {
+  color: #3c4043;
+  font-weight: 600;
+}

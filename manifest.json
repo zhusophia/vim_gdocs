@@ -1,0 +1,31 @@
+{
+  "manifest_version": 3,
+  "name": "Vim for Google Docs",
+  "version": "1.0.0",
+  "description": "Vim-style keybinds, relative line numbers and a :N line jump for Google Docs.",
+  "icons": {
+    "16": "icons/icon16.png",
+    "32": "icons/icon32.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  },
+  "action": {
+    "default_title": "Vim for Google Docs — keybinds",
+    "default_popup": "popup/popup.html",
+    "default_icon": {
+      "16": "icons/icon16.png",
+      "32": "icons/icon32.png",
+      "48": "icons/icon48.png",
+      "128": "icons/icon128.png"
+    }
+  },
+  "content_scripts": [
+    {
+      "matches": ["https://docs.google.com/document/*"],
+      "js": ["src/keys.js", "src/ui.js", "src/gutter.js", "src/vim.js", "src/content.js"],
+      "css": ["src/ui.css"],
+      "run_at": "document_idle",
+      "world": "MAIN"
+    }
+  ]
+}
