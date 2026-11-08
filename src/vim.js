@@ -119,7 +119,6 @@
     if (k === 'G') { m.docBottom(true); count = ''; return; }
 
     if (k === 'd' || k === 'c' || k === 'y' || k === 'x') {
-      if (line) m.right(true); // include the line break
       applyOp(k === 'x' ? 'd' : k);
       if (mode !== 'insert') setMode('normal');
       reset();
@@ -210,7 +209,8 @@
         m.lineStart(false); K().press('Enter'); K().press('ArrowUp'); setMode('insert'); break;
       case 'v': setMode('visual'); break;
       case 'V':
-        m.lineStart(false); m.lineEnd(true); setMode('vline'); break;
+        // select from the start of the current word to the end of the row
+        m.wordFwd(false); m.wordBack(false); m.lineEnd(true); setMode('vline'); break;
       case 'p': paste(); break;
       case 'u': repeat(n, () => K().undo()); break;
       case 'r': repeat(n, () => K().redo()); break;
