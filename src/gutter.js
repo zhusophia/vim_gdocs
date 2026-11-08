@@ -100,7 +100,15 @@
     if (centers.length > 1) {
       const diffs = [];
       for (let i = 1; i < centers.length; i++) diffs.push(centers[i] - centers[i - 1]);
-      const p = median(diffs);
+      // Row spacing = the smallest spacing between neighbouring rows (blank lines make the
+      // overall median too big). If every row is separated by a blank, assume a normal row height.
+      const real = diffs.filter((d) => d >= 8 * zoom);
+      let p = 0;
+      if (real.length) {
+        const minD = Math.min(...real);
+        p = median(real.filter((d) => d <= minD * 1.3));
+        if (p > 28 * zoom) p = 17 * zoom;
+      }
       const filled = [centers[0]];
       for (let i = 1; i < centers.length; i++) {
         const d = centers[i] - centers[i - 1];
@@ -263,6 +271,53 @@
     poke();
   }
 
+  // Does the caret's row start with a bullet or number? (a small mark, then a clear gap, then text)
+  function lineHasMarker() {
+    try {
+      const caret = readCaret();
+      if (!caret) return false;
+      for (const { c, r } of tiles()) {
+        if (caret.mid < r.top || caret.mid > r.bottom) continue;
+        const k = c.height / r.height; // canvas px per CSS px
+        const y0 = Math.max(0, Math.round((caret.mid - r.top - caret.h * 0.3) * k));
+        const h = Math.min(Math.max(1, Math.round(caret.h * 0.6 * k)), c.height - y0);
+        if (h < 1) return false;
+        tmp.width = c.width;
+        tmp.height = h;
+        tctx.clearRect(0, 0, c.width, h);
+        tctx.drawImage(c, 0, y0, c.width, h, 0, 0, c.width, h);
+        const d = tctx.getImageData(0, 0, c.width, h).data;
+        const cssPerPx = r.width / c.width;
+        const zoom = r.width / PAGE_W;
+        const clusters = [];
+        let start = -1, last = -1;
+        const gapPx = (10 * zoom) / cssPerPx;
+        for (let x = 0; x < c.width; x++) {
+          let on = false;
+          for (let y = 0; y < h && !on; y++) {
+            const i = (y * c.width + x) * 4;
+            const a = d[i + 3];
+            if (a && (a * (255 - (d[i] + d[i + 1] + d[i + 2]) / 3)) / 255 > 40) on = true;
+          }
+          if (!on) continue;
+          if (start >= 0 && x - last > gapPx) {
+            clusters.push([start, last]);
+            start = x;
+          } else if (start < 0) start = x;
+          last = x;
+          if (clusters.length >= 2) break;
+        }
+        if (start >= 0 && clusters.length < 2) clusters.push([start, last]);
+        if (clusters.length < 2) return false;
+        const firstW = (clusters[0][1] - clusters[0][0] + 1) * cssPerPx;
+        return firstW <= 22 * zoom;
+      }
+    } catch (err) {
+      warn('bullet check failed', err);
+    }
+    return false;
+  }
+
   function expect() { poke(); }
   function edited() { requestScan(150); }
 
@@ -284,5 +339,5 @@
     requestScan(600);
   }
 
-  NS.gutter = { init, poke, expect, setLine, edited };
+  NS.gutter = { init, poke, expect, setLine, edited, lineHasMarker };
 })();

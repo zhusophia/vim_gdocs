@@ -38,6 +38,8 @@
 
   function selectLines(n, withBreak) {
     const m = K().motion;
+    // On a bullet/numbered line, erase only the text so the bullet stays.
+    if (withBreak && NS.gutter.lineHasMarker()) withBreak = false;
     m.lineStart(false);
     m.lineEnd(true);
     if (n > 1) {
