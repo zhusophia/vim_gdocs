@@ -48,7 +48,7 @@
 
   // Returns the vertical centers (as fractions of tile height) of the text rows on one tile.
   function scan(c, r) {
-    const W = 128;
+    const W = 512; // wide enough that a lone bullet dash still registers
     const H = c.height;
     tmp.width = W;
     tmp.height = H;
@@ -64,9 +64,9 @@
         const a = data[i + 3];
         if (!a) continue;
         const lum = (data[i] + data[i + 1] + data[i + 2]) / 3;
-        if ((a * (255 - lum)) / 255 > 10) n++;
+        if ((a * (255 - lum)) / 255 > 12) n++;
       }
-      ink[y] = n >= 2 ? 1 : 0;
+      ink[y] = n >= 1 ? 1 : 0;
     }
 
     const bandsFrom = (gap) => {
@@ -93,7 +93,6 @@
     const top = bodyTop * zoom;
     const bottom = r.height - BOTTOM_CUT * zoom;
     let centers = bands
-      .filter((b) => b[1] - b[0] >= 1)
       .map((b) => ((b[0] + b[1] + 1) / 2) * k)
       .filter((y) => y >= top && y <= bottom);
 

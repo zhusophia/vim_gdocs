@@ -50,12 +50,13 @@
   // Apply operator to whatever is currently selected.
   function applyOp(o) {
     const k = K();
-    if (o === 'y') {
-      k.exec('copy');
-      k.press('ArrowLeft'); // collapse to selection start
-      return;
-    }
-    if (!k.exec('cut')) k.press('Backspace');
+    // Short delay so Docs has applied the Shift+motion selection before we act on it.
+    setTimeout(() => {
+      k.exec('copy'); // fills the register when Docs allows it
+      if (o === 'y') k.press('ArrowLeft'); // collapse to selection start
+      else k.press('Backspace'); // deletes the selection (execCommand('cut') can silently do nothing)
+      NS.gutter.edited();
+    }, 40);
     if (o === 'c') setMode('insert');
   }
 
